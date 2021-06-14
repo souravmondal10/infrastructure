@@ -45,7 +45,7 @@ services:
       - ../api:/var/www/html
       - ./apinginx:/etc/nginx/conf.d
   jenkins:
-    image: jenkins:latest
+    image: jenkins:2.60.3
     ports:
       - 8080:8080
     container_name: jenkins
