@@ -58,7 +58,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: very_strong_password
     volumes:
-      - ../mysql-data /var/lib/mysql
+      - ../mysql-data:/var/lib/mysql/
     ports:
       - 3306:3306
   redis:
