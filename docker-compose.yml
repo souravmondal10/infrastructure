@@ -9,7 +9,7 @@ services:
     restart: always
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html
+      - ../frontEnd:/var/www/html
   frontendnginx:
     image: nginx:1.19-alpine
     container_name: frontend-nginx
@@ -34,7 +34,7 @@ services:
     restart: always
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html
+      - ../api:/var/www/html
   apinginx:
     image: nginx:1.19-alpine
     container_name: api-nginx
