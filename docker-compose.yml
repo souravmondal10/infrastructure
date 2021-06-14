@@ -60,7 +60,7 @@ services:
       MYSQL_DATABASE: UserBase
     volumes:
       - ../mysql-data:/var/lib/mysql/
-      - ./mysql_fixture:/tmp/import_mysql_database
+      - ./mysql_fixtures:/tmp/import_mysql_database
     ports:
       - 3306:3306
   redis:
