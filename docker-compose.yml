@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  frontendapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: php-frontend-app
+    restart: always
+    working_dir: /var/www/html
+    volumes:
+      - ./code:/var/www/html
+  frontendnginx:
+    image: nginx:1.19-alpine
+    container_name: frontend-nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./code:/var/www/html
+      - ./nginx:/etc/nginx/conf.d
