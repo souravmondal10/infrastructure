@@ -19,7 +19,7 @@ services:
     volumes:
       - ../frontEnd:/var/www/html
       - ./nginx:/etc/nginx/conf.d
-  dataStore:
+  datastore:
     build:
       context: ../dataStore
       dockerfile: Dockerfile
