@@ -37,7 +37,7 @@ services:
       - ./:/var/www/html
   apinginx:
     image: nginx:1.19-alpine
-    container_name: frontend-nginx
+    container_name: api-nginx
     restart: always
     ports:
       - 80:80
@@ -58,7 +58,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: very_strong_password
     volumes:
-      - ./mysql-data /var/lib/mysql
+      - ../mysql-data /var/lib/mysql
     ports:
       - 3306:3306
   redis:
