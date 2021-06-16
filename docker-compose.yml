@@ -44,12 +44,6 @@ services:
     volumes:
       - ../api:/var/www/html
       - ./apinginx:/etc/nginx/conf.d
-  jenkins:
-    image: jenkins/jenkins
-    ports:
-      - 8080:8080
-    container_name: jenkins
-    restart: always
   mysql:
     image: mysql
     container_name: mysql
