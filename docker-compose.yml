@@ -10,6 +10,8 @@ services:
     working_dir: /var/www/html
     volumes:
       - ../frontEnd:/var/www/html
+    depends_on:
+      - frontendnginx
   frontendnginx:
     image: nginx:1.19-alpine
     container_name: frontend-nginx
@@ -26,6 +28,9 @@ services:
     container_name: php-data-store
     restart: always
     working_dir: /var/www/html
+    depends_on:
+      - mysql
+      - redis
   api:
     build:
       context: ../api
@@ -35,6 +40,8 @@ services:
     working_dir: /var/www/html
     volumes:
       - ../api:/var/www/html
+    depends_on:
+      - apinginx
   apinginx:
     image: nginx:1.19-alpine
     container_name: api-nginx
@@ -55,9 +62,17 @@ services:
     volumes:
       - ../mysql-data:/var/lib/mysql/
       - ./mysql_fixtures/fixture.sql:/docker-entrypoint-initdb.d/dump.sql
-    ports:
-      - 3306:3306
   redis:
     image: redis
     container_name: redis
     restart: always
+  tests:
+    build:
+      context: ../tests
+      dockerfile: Dockerfile
+    restart: always
+    working_dir: /var/www/html
+    depends_on:
+      - mysql
+      - redis
+      - datastore
