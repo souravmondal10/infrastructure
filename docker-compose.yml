@@ -52,8 +52,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: very_strong_password
       MYSQL_DATABASE: UserBase
-      MYSQL_USER: root
-      MYSQL_PASSWORD: very_strong_password
     volumes:
       - ../mysql-data:/var/lib/mysql/
       - ./mysql_fixtures/fixture.sql:/docker-entrypoint-initdb.d/dump.sql
