@@ -12,6 +12,8 @@ services:
       - ../frontEnd:/var/www/html
     depends_on:
       - frontendnginx
+      - mysql
+      - redis
   frontendnginx:
     image: nginx:1.19-alpine
     container_name: frontend-nginx
@@ -20,7 +22,7 @@ services:
       - 80:80
     volumes:
       - ../frontEnd:/var/www/html
-      - ./nginx:/etc/nginx/conf.d
+      - ./frontend-nginx:/etc/nginx/conf.d
   datastore:
     build:
       context: ../dataStore
@@ -42,6 +44,8 @@ services:
       - ../api:/var/www/html
     depends_on:
       - apinginx
+      - mysql
+      - redis
   apinginx:
     image: nginx:1.19-alpine
     container_name: api-nginx
@@ -50,7 +54,7 @@ services:
       - 8081:80
     volumes:
       - ../api:/var/www/html
-      - ./apinginx:/etc/nginx/conf.d
+      - ./api-nginx:/etc/nginx/conf.d
   mysql:
     image: mysql
     container_name: mysql
