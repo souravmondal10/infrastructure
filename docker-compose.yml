@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   frontendapp:
     build:
@@ -8,21 +7,9 @@ services:
     container_name: php-frontend-app
     restart: always
     working_dir: /var/www/html
-    volumes:
-      - ../frontEnd:/var/www/html
     depends_on:
-      - frontendnginx
       - mysql
       - redis
-  frontendnginx:
-    image: nginx:1.19-alpine
-    container_name: frontend-nginx
-    restart: always
-    ports:
-      - 80:80
-    volumes:
-      - ../frontEnd:/var/www/html
-      - ./frontend-nginx:/etc/nginx/conf.d
   datastore:
     build:
       context: ../dataStore
@@ -43,18 +30,8 @@ services:
     volumes:
       - ../api:/var/www/html
     depends_on:
-      - apinginx
       - mysql
       - redis
-  apinginx:
-    image: nginx:1.19-alpine
-    container_name: api-nginx
-    restart: always
-    ports:
-      - 8081:80
-    volumes:
-      - ../api:/var/www/html
-      - ./api-nginx:/etc/nginx/conf.d
   mysql:
     image: mysql
     container_name: mysql
