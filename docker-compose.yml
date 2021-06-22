@@ -1,19 +1,17 @@
 version: '3'
 services:
   frontendapp:
-    build:
-      context: ../frontEnd
-      dockerfile: Dockerfile
+    image: souravmondal10/frontend
     container_name: php-frontend-app
     restart: always
     working_dir: /var/www/html
+    ports:
+      - 8080:8080
     depends_on:
       - mysql
       - redis
   datastore:
-    build:
-      context: ../dataStore
-      dockerfile: Dockerfile
+    image: souravmondal10/datastore
     container_name: php-data-store
     restart: always
     working_dir: /var/www/html
@@ -21,17 +19,24 @@ services:
       - mysql
       - redis
   api:
-    build:
-      context: ../api
-      dockerfile: Dockerfile
+    image: souravmondal10/api
     container_name: api
     restart: always
     working_dir: /var/www/html
-    volumes:
-      - ../api:/var/www/html
+    ports:
+      - 8081:8081
     depends_on:
       - mysql
       - redis
+  nginxroute:
+    image: souravmondal10/nginxroute
+    container_name: nginxroute
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - api
+      - frontendapp
   mysql:
     image: mysql
     container_name: mysql
@@ -48,9 +53,7 @@ services:
     container_name: redis
     restart: always
   tests:
-    build:
-      context: ../tests
-      dockerfile: Dockerfile
+    image: souravmondal10/tests
     restart: always
     working_dir: /var/www/html
     depends_on:
