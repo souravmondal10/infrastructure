@@ -1,1 +1,0 @@
-echo $REDIS_HOST
