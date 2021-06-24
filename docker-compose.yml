@@ -5,25 +5,16 @@ services:
     container_name: php-frontend-app
     restart: always
     working_dir: /var/www/html
-    depends_on:
-      - mysql
-      - redis
   datastore:
     image: souravmondal10/datastore
     container_name: php-data-store
     restart: always
     working_dir: /var/www/html
-    depends_on:
-      - mysql
-      - redis
   api:
     image: souravmondal10/api
     container_name: api
     restart: always
     working_dir: /var/www/html
-    depends_on:
-      - mysql
-      - redis
   nginxroute:
     image: souravmondal10/nginxroute
     container_name: nginxroute
@@ -33,18 +24,3 @@ services:
     depends_on:
       - api
       - frontendapp
-  mysql:
-    image: mysql
-    container_name: mysql
-    restart: always
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql_pass_xxx
-      MYSQL_DATABASE: mysql_database_xxx
-    volumes:
-      - ../mysql-data:/var/lib/mysql/
-      - ./mysql_fixtures/fixture.sql:/docker-entrypoint-initdb.d/dump.sql
-  redis:
-    image: redis
-    container_name: redis
-    restart: always
